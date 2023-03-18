@@ -340,8 +340,8 @@ class ComposerStaticInit489cff41562d03bb57702be5d2e8abc0
         ),
         'Psr\\Http\\Message\\' => 
         array (
-            0 => __DIR__ . '/..' . '/psr/http-message/src',
-            1 => __DIR__ . '/..' . '/psr/http-factory/src',
+            0 => __DIR__ . '/..' . '/psr/http-factory/src',
+            1 => __DIR__ . '/..' . '/psr/http-message/src',
         ),
         'Psr\\Http\\Client\\' => 
         array (
@@ -507,6 +507,7 @@ class ComposerStaticInit489cff41562d03bb57702be5d2e8abc0
     public static $classMap = array (
         'App\\Console\\Kernel' => __DIR__ . '/../..' . '/app/Console/Kernel.php',
         'App\\Exceptions\\Handler' => __DIR__ . '/../..' . '/app/Exceptions/Handler.php',
+        'App\\Http\\Controllers\\Api\\PostController' => __DIR__ . '/../..' . '/app/Http/Controllers/Api/PostController.php',
         'App\\Http\\Controllers\\Controller' => __DIR__ . '/../..' . '/app/Http/Controllers/Controller.php',
         'App\\Http\\Kernel' => __DIR__ . '/../..' . '/app/Http/Kernel.php',
         'App\\Http\\Middleware\\Authenticate' => __DIR__ . '/../..' . '/app/Http/Middleware/Authenticate.php',
@@ -518,12 +519,15 @@ class ComposerStaticInit489cff41562d03bb57702be5d2e8abc0
         'App\\Http\\Middleware\\TrustProxies' => __DIR__ . '/../..' . '/app/Http/Middleware/TrustProxies.php',
         'App\\Http\\Middleware\\ValidateSignature' => __DIR__ . '/../..' . '/app/Http/Middleware/ValidateSignature.php',
         'App\\Http\\Middleware\\VerifyCsrfToken' => __DIR__ . '/../..' . '/app/Http/Middleware/VerifyCsrfToken.php',
+        'App\\Models\\Post' => __DIR__ . '/../..' . '/app/Models/Post.php',
         'App\\Models\\User' => __DIR__ . '/../..' . '/app/Models/User.php',
         'App\\Providers\\AppServiceProvider' => __DIR__ . '/../..' . '/app/Providers/AppServiceProvider.php',
         'App\\Providers\\AuthServiceProvider' => __DIR__ . '/../..' . '/app/Providers/AuthServiceProvider.php',
         'App\\Providers\\BroadcastServiceProvider' => __DIR__ . '/../..' . '/app/Providers/BroadcastServiceProvider.php',
         'App\\Providers\\EventServiceProvider' => __DIR__ . '/../..' . '/app/Providers/EventServiceProvider.php',
         'App\\Providers\\RouteServiceProvider' => __DIR__ . '/../..' . '/app/Providers/RouteServiceProvider.php',
+        'App\\Repositories\\contracts\\PostsRepoInterface' => __DIR__ . '/../..' . '/app/Repositories/contracts/PostsRepoInterface.php',
+        'App\\Traits\\ServiceResponser' => __DIR__ . '/../..' . '/app/Traits/ServiceResponser.php',
         'Attribute' => __DIR__ . '/..' . '/symfony/polyfill-php80/Resources/stubs/Attribute.php',
         'Brick\\Math\\BigDecimal' => __DIR__ . '/..' . '/brick/math/src/BigDecimal.php',
         'Brick\\Math\\BigInteger' => __DIR__ . '/..' . '/brick/math/src/BigInteger.php',
@@ -2427,6 +2431,7 @@ class ComposerStaticInit489cff41562d03bb57702be5d2e8abc0
         'Illuminate\\Routing\\Exceptions\\InvalidSignatureException' => __DIR__ . '/..' . '/laravel/framework/src/Illuminate/Routing/Exceptions/InvalidSignatureException.php',
         'Illuminate\\Routing\\Exceptions\\StreamedResponseException' => __DIR__ . '/..' . '/laravel/framework/src/Illuminate/Routing/Exceptions/StreamedResponseException.php',
         'Illuminate\\Routing\\Exceptions\\UrlGenerationException' => __DIR__ . '/..' . '/laravel/framework/src/Illuminate/Routing/Exceptions/UrlGenerationException.php',
+        'Illuminate\\Routing\\FiltersControllerMiddleware' => __DIR__ . '/..' . '/laravel/framework/src/Illuminate/Routing/FiltersControllerMiddleware.php',
         'Illuminate\\Routing\\ImplicitRouteBinding' => __DIR__ . '/..' . '/laravel/framework/src/Illuminate/Routing/ImplicitRouteBinding.php',
         'Illuminate\\Routing\\Matching\\HostValidator' => __DIR__ . '/..' . '/laravel/framework/src/Illuminate/Routing/Matching/HostValidator.php',
         'Illuminate\\Routing\\Matching\\MethodValidator' => __DIR__ . '/..' . '/laravel/framework/src/Illuminate/Routing/Matching/MethodValidator.php',
@@ -2443,6 +2448,7 @@ class ComposerStaticInit489cff41562d03bb57702be5d2e8abc0
         'Illuminate\\Routing\\Pipeline' => __DIR__ . '/..' . '/laravel/framework/src/Illuminate/Routing/Pipeline.php',
         'Illuminate\\Routing\\RedirectController' => __DIR__ . '/..' . '/laravel/framework/src/Illuminate/Routing/RedirectController.php',
         'Illuminate\\Routing\\Redirector' => __DIR__ . '/..' . '/laravel/framework/src/Illuminate/Routing/Redirector.php',
+        'Illuminate\\Routing\\ResolvesRouteDependencies' => __DIR__ . '/..' . '/laravel/framework/src/Illuminate/Routing/ResolvesRouteDependencies.php',
         'Illuminate\\Routing\\ResourceRegistrar' => __DIR__ . '/..' . '/laravel/framework/src/Illuminate/Routing/ResourceRegistrar.php',
         'Illuminate\\Routing\\ResponseFactory' => __DIR__ . '/..' . '/laravel/framework/src/Illuminate/Routing/ResponseFactory.php',
         'Illuminate\\Routing\\Route' => __DIR__ . '/..' . '/laravel/framework/src/Illuminate/Routing/Route.php',

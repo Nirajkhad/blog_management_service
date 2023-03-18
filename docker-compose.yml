@@ -1,0 +1,70 @@
+version: '3'
+services:
+
+  #PHP Service
+  blog-management-service:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    image: blog-management-service    
+    container_name: blog-management-service
+    volumes:
+      - ./:/var/www
+    working_dir: /var/www
+    networks:
+      - blog-service-network
+
+  #Nginx Service
+  nginx:
+    image: nginx
+    container_name: nginx
+    restart: always
+    tty: true
+    ports:
+      - "8080:80"
+      - "8143:443"
+    volumes:
+      - ./:/var/www
+      - ./docker-compose/nginx/conf.d/:/etc/nginx/conf.d/
+    networks:
+      - blog-service-network
+    depends_on:
+      - blog-management-service
+
+  #mariadb
+  mariadb:
+    image: mariadb
+    container_name: mariadb
+    restart: always
+    ports:
+      - 3306
+    environment:
+      MYSQL_ROOT_PASSWORD: root
+      MYSQL_USERNAME: root
+      MYSQL_DATABASE: blog
+    volumes:
+      - mariadb:/var/lib/mysql
+    networks:
+      - blog-service-network
+
+  phpmyadmin:
+    container_name: phpmyadmin
+    image: phpmyadmin
+    restart: always
+    ports:
+      - 8020:80
+    environment:
+      - PMA_ARBITRARY=1
+    networks:
+      - blog-service-network
+    links:
+      - mariadb
+
+
+volumes:
+  mariadb:
+
+#Docker Networks
+networks:
+  blog-service-network:
+     driver: bridge

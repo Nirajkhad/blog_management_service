@@ -11,7 +11,7 @@ class AppServiceProvider extends ServiceProvider
      */
     public function register(): void
     {
-        //
+        $this->bootRepo();
     }
 
     /**
@@ -20,5 +20,15 @@ class AppServiceProvider extends ServiceProvider
     public function boot(): void
     {
         //
+    }
+
+    public function bootRepo(){
+        $repoClass = [
+            'Posts'
+        ];
+
+        foreach ($repoClass as $repo_class) {
+            $this->app->bind("App\Repositories\contracts\\{$repo_class}RepoInterface", "App\Repositories\\{$repo_class}Repo");
+        }
     }
 }

@@ -61,7 +61,8 @@ return [
             'options' => extension_loaded('pdo_mysql') ? array_filter([
                 PDO::MYSQL_ATTR_SSL_CA => env('MYSQL_ATTR_SSL_CA'),
             ]) : [],
-        ],
+            ],
+        
 
         'pgsql' => [
             'driver' => 'pgsql',
@@ -105,6 +106,7 @@ return [
     | the migrations on disk haven't actually been run in the database.
     |
     */
+    
 
     'migrations' => 'migrations',
 

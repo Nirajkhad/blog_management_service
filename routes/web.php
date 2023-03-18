@@ -1,5 +1,7 @@
 <?php
 
+use App\Models\Post;
+use Illuminate\Support\Facades\Log;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -14,5 +16,11 @@ use Illuminate\Support\Facades\Route;
 */
 
 Route::get('/', function () {
+    Post::all();
+    Log::info("HERE");
+    // return view('welcome');
+});
+
+Route::get('/welcome', function () {
     return view('welcome');
 });
