@@ -1,53 +1,56 @@
 FROM php:8.1-fpm
 
-# Copy composer.lock and composer.json
-COPY composer.lock composer.json /var/www/
-
-# Set working directory
-WORKDIR /var/www
-
-# Install dependencies
+# Get frequently used tools
 RUN apt-get update && apt-get install -y \
     build-essential \
+    libicu-dev \
+    libzip-dev \
     libpng-dev \
     libjpeg62-turbo-dev \
     libfreetype6-dev \
+    libonig-dev \
     locales \
     zip \
-    jpegoptim optipng pngquant gifsicle \
-    vim \
-    libzip-dev \
     unzip \
-    git \
+    vim \
     curl \
-    libonig-dev
+    wget 
 
-# Clear cache
-RUN apt-get clean && rm -rf /var/lib/apt/lists/*
+RUN docker-php-ext-configure zip
 
-# Install extensions
-RUN docker-php-ext-install pdo_mysql mbstring zip exif pcntl
-RUN docker-php-ext-configure gd --enable-gd --with-freetype --with-jpeg
-RUN docker-php-ext-install gd
+RUN docker-php-ext-install pdo pdo_mysql mysqli
 
-# Install composer
+RUN apt-get --allow-releaseinfo-change update
+
+RUN apt-get install -y libpq-dev \
+    && docker-php-ext-configure pgsql -with-pgsql=/usr/local/pgsql \
+    && docker-php-ext-install pdo pdo_pgsql pgsql
+
+RUN sed -i 's/SECLEVEL=2/SECLEVEL=1/g' /etc/ssl/openssl.cnf
+RUN sed -i 's/TLSv1.2/TLSv1.0/g' /etc/ssl/openssl.cnf
+
+# Set working directory
+WORKDIR /var/www/html
+
+# Memory Limit
+RUN echo "memory_limit=-1" > $PHP_INI_DIR/conf.d/memory-limit.ini
+
+# Add user for laravel application
+RUN groupadd -g 1000 www
+RUN useradd -u 1000 -ms /bin/bash -g www www
+
 RUN curl -sS https://getcomposer.org/installer | php -- --install-dir=/usr/local/bin --filename=composer
 
-# Copy existing application directory contents to the working directory
-COPY . /var/www
+# Copy existing application directory permissions
+COPY --chown=www:www . /var/www/html
 
-# Assign permissions of the working directory to the www-data user
-RUN chown -R www-data:www-data \
-        /var/www/storage \
-        /var/www/bootstrap/cache 
+# Copy and run composer
+# COPY --from=composer:latest /usr/bin/composer /usr/local/bin/composer
+RUN composer install 
 
-# Assign writing permissions to logs and framework directories
-RUN chmod 777 storage/logs \
-        /var/www/storage/framework/sessions \
-        /var/www/storage/framework/views
+# Change current user to www
+USER www
 
-USER www-data
-
-# Expose port 9000 and start php-fpm server
+# Expose port 8000 and start php-fpm server
 EXPOSE 9000
 CMD ["php-fpm"]

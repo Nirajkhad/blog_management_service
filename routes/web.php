@@ -15,11 +15,6 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-Route::get('/', function () {
-    Post::all();
-    Log::info("HERE");
-    // return view('welcome');
-});
 
 Route::get('/welcome', function () {
     return view('welcome');

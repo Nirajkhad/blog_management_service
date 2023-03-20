@@ -9,8 +9,8 @@ services:
     image: blog-management-service    
     container_name: blog-management-service
     volumes:
-      - ./:/var/www
-    working_dir: /var/www
+      - ./:/var/www/html
+    working_dir: /var/www/html
     networks:
       - blog-service-network
 
@@ -18,13 +18,11 @@ services:
   nginx:
     image: nginx
     container_name: nginx
-    restart: always
     tty: true
     ports:
       - "8080:80"
-      - "8143:443"
     volumes:
-      - ./:/var/www
+      - ./:/var/www/html
       - ./docker-compose/nginx/conf.d/:/etc/nginx/conf.d/
     networks:
       - blog-service-network
@@ -60,11 +58,10 @@ services:
     links:
       - mariadb
 
-
 volumes:
   mariadb:
 
 #Docker Networks
 networks:
   blog-service-network:
-     driver: bridge
+     external: true

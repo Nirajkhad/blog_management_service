@@ -20,6 +20,10 @@ Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
 });
 
 Route::namespace('Api')->prefix('/posts')->group(function(){
-    Route::post('/',[PostController::class,'addPosts']);
+    Route::post('/',[PostController::class,'addPost']);
+    Route::get('/',[PostController::class,'getAllPosts']);
+    Route::get('/filter',[PostController::class,'filterPosts']);
+    Route::put('/{id}',[PostController::class,'updatePost']);
+    Route::delete('/{id}',[PostController::class,'deletePost']);
 });
 
